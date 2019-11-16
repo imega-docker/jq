@@ -20,5 +20,3 @@ release:
 	@docker login --username $(DOCKER_USER) --password $(DOCKER_PASS)
 	@docker push $(IMAGE):$(TAG)
 	@docker push $(IMAGE):latest
-
-.PHONY: build
