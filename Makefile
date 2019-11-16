@@ -1,12 +1,24 @@
-# Build rootfs
+BUILDER_VER = 1.9.0
+IMAGE=imega/jq
+TAG=latest
 
-build: build-fs
-	@docker build -t imega/jq .
+build: buildfs test
+	@docker build -t $(IMAGE):$(TAG) .
+	@docker tag $(IMAGE):$(TAG) $(IMAGE):latest
 
-build-fs:
+buildfs:
 	@docker run --rm \
 		-v $(CURDIR)/build:/build \
-		imega/base-builder:1.1.1 \
-		--packages="jq"
+		imega/base-builder:$(BUILDER_VER) \
+		--packages="jq@edge-main"
+
+test:
+	@docker build -t $(IMAGE):test .
+	@echo '{"foo":10, "bar":200}' | docker run --rm -i imega/jq:test '.bar as $$x | .foo | . + $$x' | grep 210
+
+release:
+	@docker login --username $(DOCKER_USER) --password $(DOCKER_PASS)
+	@docker push $(IMAGE):$(TAG)
+	@docker push $(IMAGE):latest
 
 .PHONY: build

@@ -1,0 +1,14 @@
+branches:
+    only:
+        - master
+language: ruby
+services:
+    - docker
+script:
+    - NV=`curl --silent "https://raw.githubusercontent.com/alpinelinux/aports/master/main/jq/APKBUILD" | grep pkgver= | sed 's/pkgver=//g'`
+    - RELEASE=0
+    - docker pull imega/jq:$NV || RELEASE=1
+    - make build TAG=$NV || exit 1
+after_success:
+    - |
+        [ "${RELEASE}" == "1" ] && (make release DOCKER_USER=$DOCKER_USER DOCKER_PASS=$DOCKER_PASS TAG=$NV)

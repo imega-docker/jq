@@ -1,6 +1,7 @@
-FROM imega/base-builder:1.2.0
+FROM scratch
 
-MAINTAINER Dmitry Gavriloff <info@imega.ru>
+LABEL maintainer="Dmitry Stoletoff <i n f o @ i m e g a . r u>" \
+    description="A lightweight and flexible command-line JSON processor."
 
 ADD build/rootfs.tar.gz /
 
