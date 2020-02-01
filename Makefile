@@ -1,4 +1,4 @@
-BUILDER_VER = 1.9.1
+BUILDER_IMG = imega/base-builder:1.9.1
 IMAGE=imega/jq
 TAG=latest
 ARCH=$(shell uname -m)
@@ -14,7 +14,7 @@ build: buildfs test
 buildfs:
 	@docker run --rm \
 		-v $(CURDIR)/build:/build \
-		murilofv/base-builder:$(BUILDER_VER) \
+		$(BUILDER_IMG) \
 		--packages="jq@edge-main"
 
 test:
