@@ -4,7 +4,7 @@ A lightweight and flexible command-line JSON processor. http://stedolan.github.i
 
 [![](https://images.microbadger.com/badges/version/imega/jq.svg)](https://microbadger.com/images/imega/jq "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/imega/jq.svg)](http://microbadger.com/images/imega/jq "Get your own image badge on microbadger.com") [![Build Status](https://travis-ci.org/imega-docker/jq.svg?branch=master)](https://travis-ci.org/imega-docker/jq) ![GitHub stars](https://img.shields.io/github/stars/imega-docker/jq?style=social)
 
-Image size: >1 MB (Very lightweight)
+Image size: <1 MB (Very lightweight)
 
 From image: alpine:3.10
 
