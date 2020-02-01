@@ -1,4 +1,4 @@
-BUILDER_VER = 1.9.0
+BUILDER_VER = 1.9.1
 IMAGE=imega/jq
 TAG=latest
 ARCH=$(shell uname -m)

@@ -1,14 +1,13 @@
 branches:
-    only:
-        - master
-        - ppc64le_support
+  only:
+    - master
 language: ruby
 services:
-    - docker
+  - docker
 
 env:
   global:
-    - IMAGE=murilofv/jq
+    - IMAGE=imega/jq
     - NV=`curl --silent "https://raw.githubusercontent.com/alpinelinux/aports/master/main/jq/APKBUILD" | grep pkgver= | sed 's/pkgver=//g'`
 
 stages:
