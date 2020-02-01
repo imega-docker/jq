@@ -41,6 +41,4 @@ jobs:
       os: linux
       script:
         - export DOCKER_CLI_EXPERIMENTAL=enabled
-        - MANIFEST_RELEASE=0
-        - docker pull $IMAGE:$NV || MANIFEST_RELEASE=1
-        - "[ ${MANIFEST_RELEASE} == 1 ] && (make release-manifest DOCKER_USER=$DOCKER_USER DOCKER_PASS=$DOCKER_PASS IMAGE=$IMAGE TAG=$NV)"
+        - "docker pull $IMAGE:$NV || make release-manifest DOCKER_USER=$DOCKER_USER DOCKER_PASS=$DOCKER_PASS IMAGE=$IMAGE TAG=$NV)"

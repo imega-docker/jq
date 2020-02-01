@@ -21,13 +21,14 @@ test:
 	@docker build -t $(IMAGE):test .
 	@echo '{"foo":10, "bar":200}' | docker run --rm -i $(IMAGE):test '.bar as $$x | .foo | . + $$x' | grep 210
 
-release:
+login:
 	@docker login --username $(DOCKER_USER) --password $(DOCKER_PASS)
+
+release: login
 	@docker push $(IMAGE):$(TAG)-$(ARCH)
 	@docker push $(IMAGE):latest-$(ARCH)
 
 release-manifest:
-	@docker login --username $(DOCKER_USER) --password $(DOCKER_PASS)
 	@docker manifest create $(IMAGE):$(TAG) $(IMAGE):$(TAG)-amd64 $(IMAGE):$(TAG)-ppc64le
 	@docker manifest create $(IMAGE):latest $(IMAGE):latest-amd64 $(IMAGE):latest-ppc64le
 	@docker manifest push $(IMAGE):$(TAG)
