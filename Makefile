@@ -1,7 +1,11 @@
-BUILDER_IMG = imega/base-builder:1.9.1
+BUILDER_IMG = imega/base-builder:1.9.2
 IMAGE=imega/jq
 TAG=latest
 ARCH=$(shell uname -m)
+
+ifeq ($(ARCH),aarch64)
+        ARCH=arm64
+endif
 
 ifeq ($(ARCH),x86_64)
         ARCH=amd64
@@ -29,7 +33,7 @@ release: login
 	@docker push $(IMAGE):latest-$(ARCH)
 
 release-manifest:
-	@docker manifest create $(IMAGE):$(TAG) $(IMAGE):$(TAG)-amd64 $(IMAGE):$(TAG)-ppc64le
-	@docker manifest create $(IMAGE):latest $(IMAGE):latest-amd64 $(IMAGE):latest-ppc64le
+	@docker manifest create $(IMAGE):$(TAG) $(IMAGE):$(TAG)-amd64 $(IMAGE):$(TAG)-ppc64le $(IMAGE):$(TAG)-aarch64
+	@docker manifest create $(IMAGE):latest $(IMAGE):latest-amd64 $(IMAGE):latest-ppc64le $(IMAGE):latest-aarch64
 	@docker manifest push $(IMAGE):$(TAG)
 	@docker manifest push $(IMAGE):latest
