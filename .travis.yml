@@ -36,6 +36,17 @@ jobs:
       after_success:
         - "[ ${RELEASE} == 1 ] && (make release DOCKER_USER=$DOCKER_USER DOCKER_PASS=$DOCKER_PASS IMAGE=$IMAGE TAG=$NV)"
 
+    - stage: Arch-Build
+      arch: arm64
+      os: linux
+      script:
+        - RELEASE=0
+        - docker pull $IMAGE:$NV-$TRAVIS_CPU_ARCH || RELEASE=1
+        - make build IMAGE=$IMAGE TAG=$NV || exit 1
+      after_success:
+        - "[ ${RELEASE} == 1 ] && (make release DOCKER_USER=$DOCKER_USER DOCKER_PASS=$DOCKER_PASS IMAGE=$IMAGE TAG=$NV)"
+
+
     - stage: Manifest-Release
       arch: amd64
       os: linux
